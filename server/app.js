@@ -1,4 +1,13 @@
 // initial jokes provided by the client
+var express = require("express");
+var app = express();
+var bodyParser = require("body-parser");
+var index = require('./routes/index');
+var port = 4000;
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
 var jokes = [
   {
     whoseJoke: "Huck",
@@ -17,23 +26,17 @@ var jokes = [
   }
 ];
 
-var express = require("express");
-var app = express();
-var bodyParser = require("body-parser");
-var urlEncodedParser = bodyParser.urlencoded({extended: false});
-var path = require('path');
-var port = process.env.PORT || 4000;
 
-app.get('/', function(req, res){
-  res.sendFile(path.resolve('server/public/views/index.html'))
+app.get('/jokes', function(req, res){
+  res.send(jokes);
 });
 
 app.post('/jokes', function(req, res){
-
-  req.send();
+  jokes.push(req.body);
+  res.sendStatus(201);
 });
 
-app.use(express.static('server'));
+app.use('/', index);
 
 app.listen(port, function(){
   console.log("Server is on localhost:",port);

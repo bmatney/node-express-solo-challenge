@@ -1,4 +1,14 @@
 /* empty */
-h1{
+body{
+  margin: 0 auto;
+  width: 50%;
+}
+
+h1, h2{
   text-align: center;
+}
+
+#eachJoke{
+  border-style: outset;
+  margin-bottom: 20px;
 }
